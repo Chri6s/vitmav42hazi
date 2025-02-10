@@ -1,0 +1,23 @@
+{
+  "name": "vitmav42hazi",
+  "version": "1.0.0",
+  "description": "<h1>VITMAV42 Házi</h1> <h2>author: Hozák Krisztián Attila</h2>",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run check",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chri6s/vitmav42hazi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chri6s/vitmav42hazi/issues"
+  },
+  "homepage": "https://github.com/Chri6s/vitmav42hazi#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
