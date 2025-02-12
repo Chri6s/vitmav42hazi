@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Chri6s/vitmav42hazi#readme",
   "dependencies": {
     "express": "^4.21.2",
-    "mongoose": "^8.10.0"
+    "mongoose": "^8.10.0",
+    "yaml": "^2.7.0"
   }
 }
