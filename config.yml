@@ -1,2 +1,5 @@
 serverOptions:
   port: 3000
+  # wsl endpoint: mongodb://172.29.96.1:27017/test 
+  # linux endpoint: mongodb://127.0.0.1:27017/test
+  dbEndpoint: mongodb://172.29.96.1:27017/test
