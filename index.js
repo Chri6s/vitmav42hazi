@@ -5,10 +5,9 @@ let port = configHandler.get("serverOptions", "port");
 let app = express();
 
 app.set("view engine", "ejs");
+app.use(express.static("static"));
 
-app.get("/", (req, res, next) => {
-    res.send(`I'm running on port: ${configHandler.get("serverOptions", "port")}`);
-});
+require("./route/index")(app);
 
 let server = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
