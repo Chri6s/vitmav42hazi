@@ -1,5 +1,5 @@
 # BookJam: Könyv Kölcsönző Rendszer Specifikáció
-![CodeQL](https://github.com/Chri6s/vitmav42hazi/actions/workflows/main.yml/badge.svg)
+![CodeQL](https://github.com/Chri6s/vitmav42hazi/actions/workflows/codeql.yml/badge.svg)
 
 **Készítette:** Hozák Krisztián Attila (F3D10S)
 
