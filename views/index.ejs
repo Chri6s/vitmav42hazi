@@ -1,4 +1,102 @@
 <%- include('header') -%>
-<h1>Hello bro!</h1>
+  <style>
+    body {
+      background-color: #333;
+      color: #212529;
+    }
+    .navbar {
+      background-color: #333;
+    }
+    .brand-name {
+      color: #d4af37;
+      font-family: serif;
+      font-style: italic;
+      font-size: 1.8rem;
+      text-decoration: none;
+    }
+    .main-content {
+      background-color: #ddd;
+      border-radius: 0;
+      padding: 2rem;
+      margin-top: 1rem;
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-family: serif;
+    }
+    .book-row {
+      background-color: white;
+      border-radius: 10px;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+    }
+    .borrow-btn {
+      background-color: transparent;
+      border: none;
+      color: #d4af37;
+      font-weight: bold;
+    }
+    .status-check {
+      color: green;
+      font-size: 1.2rem;
+    }
+    .auth-link {
+      color: white;
+      text-decoration: none;
+      margin-left: 1rem;
+    }
+    .login-btn {
+      background-color: white;
+      color: #333;
+      border: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+    <%- include("navbar") -%>
+  <!-- Main Content -->
+  <div class="container">
+    <div class="main-content">
+      <h2 class="section-title">New Books this month</h2>
+      
+      <!-- Book row 1 -->
+      <div class="book-row d-flex align-items-center">
+        <div class="col-3">(Author)</div>
+        <div class="col-4">(Title)</div>
+        <div class="col-2">(Date)</div>
+        <div class="col-1 text-center"><span class="status-check">✓</span></div>
+        <div class="col-2 text-end">
+          <button class="borrow-btn" data-book-id="1">Borrow</button>
+        </div>
+      </div>
+      
+      <!-- Book row 2 -->
+      <div class="book-row d-flex align-items-center">
+        <div class="col-3">(Author)</div>
+        <div class="col-4">(Title)</div>
+        <div class="col-2">(Date)</div>
+        <div class="col-1 text-center"><span class="status-check">✓</span></div>
+        <div class="col-2 text-end">
+          <button class="borrow-btn" data-book-id="2">Borrow</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const borrowButtons = document.querySelectorAll('.borrow-btn');
+      borrowButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const bookId = this.getAttribute('data-book-id');
+          // Handle borrowing logic here
+          console.log(`Borrowing book with ID: ${bookId}`);
+          // You could redirect to a login page if not logged in or process the borrow request
+        });
+      });
+    });
+  </script>
 <%- include('footer') -%>
