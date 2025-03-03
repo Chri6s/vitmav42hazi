@@ -13,12 +13,24 @@
       width: 100%;
       max-width: 400px;
     }
+
+    .login-form p {
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 1rem;
+    }
     .login-title {
       text-align: center;
       margin-bottom: 1.5rem;
       font-weight: normal;
     }
-    
+    .login-links {
+      text-align: center;
+      
+    }
+    .login-links a {
+      color: var(--bookworm-brown);
+    }
     .form-control {
       margin-bottom: 1rem;
       border-radius: 20px;
@@ -34,19 +46,24 @@
       
       <form action="/login" method="POST">
         <div class="mb-3">
+          <p>Username</p>
           <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
         </div>
         
         <div class="mb-3">
+          <p>Password</p>
           <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
         </div>
         
-        <button type="submit" class="login-btn">Log in</button>
+        <div class="d-flex flex-row-reverse">
+          <button type="submit" class="login-btn">Log in</button>
+        </div>
         
         <div class="clearfix"></div>
         
         <div class="login-links">
           <a href="/forgot-password">Forgot Password</a>
+          <br>
           <a href="/register">Don't have an account?</a>
         </div>
       </form>
