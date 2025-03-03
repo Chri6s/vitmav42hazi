@@ -11,6 +11,7 @@ module.exports = function(app) {
         BookModel: BookModel,
         LoanModel: LoanModel
     }
-
+    app.use('/login', renderMW(objLib, 'login'));
+    
     app.use('/', renderMW(objLib, 'index'));
 }
