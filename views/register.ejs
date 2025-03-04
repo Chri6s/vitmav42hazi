@@ -1,0 +1,73 @@
+<%- include('header') -%>
+<style>
+    .register-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .register-form {
+      background-color: #ddd;
+      border-radius: 10px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .register-form p {
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 1rem;
+    }
+    .register-title {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-weight: normal;
+    }
+    .register-links {
+      text-align: center;
+      
+    }
+    .register-links a {
+      color: var(--bookworm-brown);
+    }
+    .form-control {
+      margin-bottom: 1rem;
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+    }
+</style>
+<!-- Navbar -->
+<%- include('navbar') -%>
+
+<div class="register-container">
+    <div class="register-form">
+      <h3 class="register-title">Create a new account</h3>
+      
+      <form action="/register" method="POST">
+        <div class="mb-3">
+            <p>Username</p>
+            <input type="text" class="form-control" id="username" name="username" placeholder="E.g. user01" required>
+        </div>
+        <div class="mb-3">
+            <p>Email</p>
+            <input type="text" class="form-control" id="email" name="email" placeholder="E.g. user@bookmail.com" required>
+        </div>
+        <div class="mb-3">
+            <p>Password</p>
+            <input type="password" class="form-control" id="password" name="password" placeholder="E.g. e3WaWoP5fHd" required>
+        </div>
+        <div class="mb-3">
+          <p>Password Again</p>
+          <input type="password" class="form-control" id="passwordAgain" name="passwordAgain" placeholder="E.g. e3WaWoP5fHd" required>
+        </div>
+        <div class="d-flex flex-row-reverse">
+          <button type="submit" class="login-btn">Register</button>
+        </div>
+        <div class="clearfix"></div>
+        <div class="register-links">
+          <a href="/forgot-password">Forgot Password</a>    
+        </div>
+      </form>
+    </div>
+</div>
