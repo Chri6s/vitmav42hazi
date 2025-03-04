@@ -77,7 +77,7 @@ body {
     flex: 1;
     overflow-y: auto;
     padding-right: 5px; 
-    padding-bottom: 2rem; 
+    padding-bottom: 0; 
     margin-bottom: 0;
 }
 
