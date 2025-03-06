@@ -25,7 +25,9 @@ module.exports = function(app) {
     app.use('/register',
         renderMW(objLib, 'register')
     );
-
+    app.use('/user',
+        renderMW(objLib, 'profile')
+    );
     app.use('/', 
         renderMW(objLib, 'index')
     );
