@@ -94,8 +94,9 @@ body {
     padding: 0.5rem;
 }
 
-.book-row * {
+.book-row *:not(:last-child) {
     border-right: 1px solid black;
+    padding-left: 0.5rem;
 }
 .borrow-btn {
     background-color: transparent;
