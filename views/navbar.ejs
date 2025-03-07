@@ -1,22 +1,22 @@
 <nav class="main-navbar navbar navbar-expand-lg navbar-dark px-3">
-    <div class="container-fluid">
-      <a class="brand-name instrument-serif-regular-italic" href="/">BookJam</a>
-      <button id="search-books-btn" class="btn login-btn ms-3">Search Books</button>
+	<div class="container-fluid">
+		<a class="brand-name instrument-serif-regular-italic" href="/">BookJam</a>
+		<button id="search-books-btn" class="btn login-btn ms-3">Search Books</button>
 
-      <div class="ms-auto">
-        <a class="register-btn instrument-serif-regular-italic " href="/register">Register</a>
-        <a href="/login"><button class="btn login-btn ms-2">Log in</button></a>
-      </div>
-    </div>
-  </nav>
+		<div class="ms-auto">
+			<a class="register-btn instrument-serif-regular-italic " href="/register">Register</a>
+			<a href="/login"><button class="btn login-btn ms-2">Log in</button></a>
+		</div>
+	</div>
+</nav>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const searchBooksBtn = document.getElementById('search-books-btn');
-    if(window.location.pathname === '/search') {
-      searchBooksBtn.style.display = 'none';
-    }
-    searchBooksBtn.addEventListener('click', function() {
-      window.location.href = '/search';
-    });
-  });
+	document.addEventListener('DOMContentLoaded', function () {
+		const searchBooksBtn = document.getElementById('search-books-btn');
+		if (window.location.pathname === '/search') {
+			searchBooksBtn.style.display = 'none';
+		}
+		searchBooksBtn.addEventListener('click', function () {
+			window.location.href = '/search';
+		});
+	});
 </script>

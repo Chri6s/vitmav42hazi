@@ -14,11 +14,18 @@
     letter-spacing: 10%;
 }
 
+.roboto {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
 :root {
     --bookworm-brown: #d4af37;
-    --background-primary: ##212529;
-    --background-secondary: #333;
-    --background-tertiary: #484646
+    --background-primary: #212529;
+    --background-secondary: #333333;
+    --background-tertiary: #484646;
+    --smokegray: #D2D2D2;
 }
 
 body {

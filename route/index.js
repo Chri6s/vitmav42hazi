@@ -21,7 +21,9 @@ module.exports = function(app) {
     app.use('/login',
          renderMW(objLib, 'login')
     );
-    
+    app.use('/search',
+        renderMW(objLib, 'search')
+    );
     app.use('/register',
         renderMW(objLib, 'register')
     );

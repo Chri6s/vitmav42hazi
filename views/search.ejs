@@ -1,0 +1,94 @@
+<%- include('header') -%>
+
+<style>
+	.search-dropdown {
+		padding: 0;
+	}
+	.search-dropdown * {
+		border: unset;
+	}
+	.search-bar {
+		background-color: snow;
+    	border-radius: 10px;
+    	margin-bottom: 0.5rem;
+    	padding: 0;
+	}
+	.dropdown-menu {
+		background-color: var(--smokegray);
+		border: 1px solid black;
+	}	
+	.dropdown-menu *:not(:last-child) {
+		border-bottom: 1px solid gray;
+	}
+	.book-header {
+		background-color: var(--smokegray);
+    	border-radius: 10px;
+    	margin-bottom: 0.5rem;
+    	padding: 0.5rem;
+		font-weight: bold;
+		padding-right: 1.3rem; /*Hack for aligning the header*/
+	}
+	.book-header * {
+    	border-right: 1px solid black;
+    	padding: 0;
+	}
+</style>
+
+<%- include('navbar') -%>
+
+<div class="container">
+	<div class="main-content">
+		<h2 class="section-title"><span class="roboto">Search for books to borrow</span></h2>
+		<div class="d-flex align-items-center search-bar">
+			<div class="dropdown search-dropdown">
+				<button class="btn btn-secondary dropdown-toggle search-dd" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+				  Title
+				</button>
+				<ul class="dropdown-menu">
+				  <li><a class="dropdown-item" onclick="setDropdownText(this)">Title</a></li>
+				  <li><a class="dropdown-item" onclick="setDropdownText(this)">Author</a></li>
+				  <li><a class="dropdown-item" onclick="setDropdownText(this)">Date</a></li>
+				  <li><a class="dropdown-item" onclick="setDropdownText(this)">ISBN</a></li>
+				</ul>
+			</div>
+			  <input type="text" class="form-control roboto" placeholder="Search for books">
+			  <button class="btn btn-secondary" type="button">
+				Search
+			  </button>
+		</div>
+		<div class="d-flex align-items-center book-header">
+			<div class="col-3 text-center">Author</div>
+			<div class="col-4 text-center">Title</div>
+			<div class="col-2 text-center">Date</div>
+			<div class="col-1 text-center">Availability</div>
+		</div>
+		<div class="books-container">
+			<% for(let i=0; i <=20; i++) { %>
+				<div class="book-row d-flex align-items-center">
+					<div class="col-3">(Author <%= i %>)</div>
+					<div class="col-4">(Title <%= i %>)</div>
+					<div class="col-2 text-center">(Date)</div>
+					<div class="col-1 text-center"><span class="status-check">✓</span></div>
+					<div class="col-2 text-center">
+						<button class="borrow-btn" data-book-id="<%= i %>">Borrow</button>
+					</div>
+				</div>
+			<% } %>
+		</div>
+	</div>
+</div>
+
+<script>
+	function setDropdownText(element) {
+		const dropdownButton = document.querySelector('.search-dd');
+		dropdownButton.innerHTML = element.innerHTML;
+
+		const activeItem = document.querySelector('.dropdown-item.active');
+		if (activeItem) {
+			activeItem.classList.remove('active');
+		}
+		element.classList.add('active');
+	}
+</script>
+
+<%- include('footer') -%>

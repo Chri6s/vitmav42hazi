@@ -1,42 +1,37 @@
 <%- include('header') -%>
 
-  <!-- Navigation -->
-  <%- include("navbar") -%>
-  
-  <!-- Main Content -->
-  <div class="container">
-    <div class="main-content">
-      <h2 class="section-title">New Books this month</h2>
-      
-      <div class="books-container">
-        <!-- More rows for testing scrolling -->
-        <!-- You can remove these in production if not needed -->
-        <% for(let i = 5; i <= 20; i++) { %>
-        <div class="book-row d-flex align-items-center">
-          <div class="col-3">(Author <%= i %>)</div>
-          <div class="col-4">(Title <%= i %>)</div>
-          <div class="col-2 text-center">(Date)</div>
-          <div class="col-1 text-center"><span class="status-check">✓</span></div>
-          <div class="col-2 text-center">
-            <button class="borrow-btn" data-book-id="<%= i %>">Borrow</button>
-          </div>
-        </div>
-        <% } %>
-      </div>
-    </div>
-  </div>
+<%- include("navbar") -%>
+<div class="container">
+	<div class="main-content">
+		<h2 class="section-title">New Books this month</h2>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const borrowButtons = document.querySelectorAll('.borrow-btn');
-      borrowButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          const bookId = this.getAttribute('data-book-id');
-          // Handle borrowing logic here
-          console.log(`Borrowing book with ID: ${bookId}`);
-          // You could redirect to a login page if not logged in or process the borrow request
-        });
-      });
-    });
-  </script>
+		<div class="books-container">
+			<% for(let i=5; i <=20; i++) { %>
+				<div class="book-row d-flex align-items-center">
+					<div class="col-3">(Author <%= i %>)</div>
+					<div class="col-4">(Title <%= i %>)</div>
+					<div class="col-2 text-center">(Date)</div>
+					<div class="col-1 text-center"><span class="status-check">✓</span></div>
+					<div class="col-2 text-center">
+						<button class="borrow-btn" data-book-id="<%= i %>">Borrow</button>
+					</div>
+				</div>
+				<% } %>
+		</div>
+	</div>
+</div>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		const borrowButtons = document.querySelectorAll('.borrow-btn');
+		borrowButtons.forEach(button => {
+			button.addEventListener('click', function () {
+				const bookId = this.getAttribute('data-book-id');
+				// Handle borrowing logic here
+				console.log(`Borrowing book with ID: ${bookId}`);
+				// You could redirect to a login page if not logged in or process the borrow request
+			});
+		});
+	});
+</script>
 <%- include('footer') -%>
