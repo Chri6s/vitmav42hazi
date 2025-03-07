@@ -8,3 +8,4 @@ Pár fontos info:
  - a static/js/crypto.js az én SHA256 algoritmusom, hatékonyság miatt le kellett minifyolnom. Ez sehol máshol nem kell, csak a gravatar 
    profilképnél. És nyilván minden olyan oldalon ahol látható a profile picture.
  - Remélem nem baj, hogy nem plain HTML-ben írtam meg, sajnos mire megnéztem pontosan a feladatot addigra már elkezdtem EJS-ben az elkészítését
+ - Most éppen így egybe van forrasztva az admin és a sima user panel, ugyanúgy a middleware hiányossága miatt. A bookedit modalt emiatt most nem is tudom bemutatni, de a kód ott van.

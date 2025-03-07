@@ -63,6 +63,15 @@
 			<div class="col-1 text-center">Availability</div>
 		</div>
 		<div class="books-container">
+			<div class="book-row d-flex align-items-center">
+				<div class="col-3">Admin</div>
+				<div class="col-4">Hogyan kell könyvet editelni</div>
+				<div class="col-2 text-center">2037</div>
+				<div class="col-1 text-center"><span class="status-check">✓</span></div>
+				<div class="col-2 text-center">
+					<button class="borrow-btn"  onclick="editBook()">Edit</button>
+				</div>
+			</div>
 			<% for(let i=0; i <=20; i++) { %>
 				<div class="book-row d-flex align-items-center">
 					<div class="col-3">(Author <%= i %>)</div>
@@ -78,6 +87,42 @@
 	</div>
 </div>
 
+<!-- Edit Book Modal -->
+<div class="modal fade" id="editBookModal" tabindex="-1" aria-labelledby="editBookModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="editBookModalLabel">Edit Book</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="editBookForm">
+					<div class="mb-3">
+						<label for="editBookTitle" class="form-label">Title</label>
+						<input type="text" class="form-control" id="editBookTitle" required>
+					</div>
+					<div class="mb-3">
+						<label for="editBookAuthor" class="form-label">Author</label>
+						<input type="text" class="form-control" id="editBookAuthor" required>
+					</div>
+					<div class="mb-3">
+						<label for="editBookDate" class="form-label">Date</label>
+						<input type="date" class="form-control" id="editBookDate" required>
+					</div>
+					<div class="mb-3">
+						<label for="editBookISBN" class="form-label">ISBN</label>
+						<input type="text" class="form-control" id="editBookISBN" required>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+				<button type="submit" class="btn btn-primary" form="editBookForm">Submit</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <script>
 	function setDropdownText(element) {
 		const dropdownButton = document.querySelector('.search-dd');
@@ -88,6 +133,11 @@
 			activeItem.classList.remove('active');
 		}
 		element.classList.add('active');
+	}
+
+	function editBook() {
+		const editBookModal = new bootstrap.Modal(document.getElementById('editBookModal'));
+		editBookModal.show();
 	}
 </script>
 
