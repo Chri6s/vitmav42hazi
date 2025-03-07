@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 .instrument-serif-regular {
     font-family: "Instrument Serif", serif;
     font-weight: 400;
@@ -117,7 +119,6 @@ body {
 }
 
 .login-btn {
-    margin-bottom: 4%;
     background-color: white;
     color: #333;
     border: none;

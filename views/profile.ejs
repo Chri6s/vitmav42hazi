@@ -1,166 +1,171 @@
 <%- include("header") -%>
-<script src="/js/crypto.js"></script>
-  <style>
-    .profile-container {
-      background-color: #ddd;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-      padding: 2rem;
-      margin: 0 auto;
-      margin-top: 1%;
-      width: 100%;
-      max-width: 1200px;
-      height: calc(100vh - 56px);
-      display: flex;
-      flex-direction: column;
-    }
+	<script src="/js/crypto.js"></script>
+	<style>
+		.profile-container {
+			background-color: #ddd;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			padding: 2rem;
+			margin: 0 auto;
+			margin-top: 1%;
+			width: 100%;
+			max-width: 1200px;
+			height: calc(100vh - 56px);
+			display: flex;
+			flex-direction: column;
+		}
 
-    .profile-card {
-      background-color: #ddd;
-      border-radius: 10px;
-      padding: 2rem;
-      width: 100%;
-    }
+		.profile-card {
+			background-color: #ddd;
+			border-radius: 10px;
+			padding: 2rem;
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			gap: 5rem;
+		}
 
-    .profile-picture {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      gap: 100px;
-    }
+		.profile-picture {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-bottom: 1.5rem;
+		}
 
-    .profile-picture img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 1rem;
-    }
+		.profile-picture img {
+			width: 150px;
+			height: 150px;
+			border-radius: 50%;
+			object-fit: cover;
+			margin-bottom: 1rem;
+		}
 
-    .gravatar-input {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
+		.gravatar-input {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			margin-bottom: 1rem;
+		}
 
-    .gravatar-input input {
-      flex-grow: 1;
-      border-radius: 20px;
-      padding: 0.5rem 1rem;
-    }
+		.gravatar-input input {
+			flex-grow: 1;
+			border-radius: 20px;
+			padding: 0.5rem 1rem;
+		}
 
-    .submit-btn {
-      display: flex;
-      justify-content: flex-end;
-    }
+		.submit-btn {
+			display: flex;
+			justify-content: flex-end;
+		}
 
-    .borrowed-books-section {
-      margin-top: 2rem;
-    }
+		.borrowed-books-section {
+			margin-top: 2rem;
+		}
 
-    .borrowed-books-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+		.borrowed-books-table {
+			width: 100%;
+			border-collapse: collapse;
+		}
 
-    .borrowed-books-table th,
-    .borrowed-books-table td {
-      border: 1px solid #999;
-      padding: 0.5rem;
-      text-align: left;
-    }
+		.borrowed-books-table th,
+		.borrowed-books-table td {
+			border: 1px solid #999;
+			padding: 0.5rem;
+			text-align: left;
+		}
 
-    .give-back-btn {
-      background-color: var(--bookworm-brown);
-      color: white;
-      border: none;
-      padding: 0.25rem 0.5rem;
-      border-radius: 5px;
-    }
+		.give-back-btn {
+			background-color: var(--bookworm-brown);
+			color: white;
+			border: none;
+			padding: 0.25rem 0.5rem;
+			border-radius: 5px;
+		}
 
-    .btn {
-      margin-bottom: 0;
-      background-color: white;
-      color: #333;
-      border: none;
-      font-weight: bold;
-    }
-    .card {
-      overflow: auto;
-    }
-  </style>
+		.btn {
+			margin-bottom: 0;
+			background-color: white;
+			color: #333;
+			border: none;
+			font-weight: bold;
+		}
 
-  <%- include("navbar") -%>
-    <div class="profile-container">
-      <div class="profile-card">
-        <div class="profile-picture">
-          <img src="/images/nopfp.svg" alt="Profile Picture" id="gravatar-image">
-          <div class="gravatar-input">
-            <input type="text" data-form-type="other" placeholder="Profile Picture Gravatar Email" name="gravatarEmail">
-            <button type="submit" class="btn">Save</button>
-          </div>
-          <div class="alert alert-success" role="alert">
-            Profile Picture changed successfully!
-          </div>
-        </div>
+		.card {
+			overflow: auto;
+		}
+	</style>
 
+	<%- include("navbar") -%>
+		<div class="profile-container">
+			<div class="profile-card">
+				<div class="profile-picture">
+					<img src="/images/nopfp.svg" alt="Profile Picture" id="gravatar-image">
+					<span>Username</span>
+				</div>
 
-      </div>
-      <!-- Borrowed Books Section -->
-      <div class="card">
-        <div class="books-container">
-          <!-- More rows for testing scrolling -->
-          <!-- You can remove these in production if not needed -->
-          <% for(let i = 5; i <= 25; i++) { %>
-          <div class="book-row d-flex align-items-center">
-            <div class="col-3">(Author <%= i %>)</div>
-            <div class="col-4">(Title <%= i %>)</div>
-            <div class="col-2">(Date)</div>
-            <div class="col-1 text-center"><span class="status-check">✓</span></div>
-            <div class="col-2 text-end">
-              <button class="borrow-btn" data-book-id="<%= i %>">Borrow</button>
-            </div>
-          </div>
-          <% } %>
-        </div>
-      </div>
-    </div>
-    </div>
-    <div class="modal fade" id="successModal" tabindex="-1">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title">Success</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-              </div>
-              <div class="modal-body">
-                  Profile Picture changed successfully!
-              </div>
-          </div>
-      </div>
-  </div>
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('gravatar-form');
-        const gravatarEmailInput = document.getElementById('gravatarEmail');
-        const gravatarImage = document.getElementById('gravatar-image');
-        const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+				<form id="gravatar-form" class="gravatar-input" novalidate>
+					<input id="gravatarEmail" type="text" data-form-type="other" placeholder="Gravatar Email" name="gravatarEmail">
+					<button type="submit" class="btn">Save</button>
+				</form>
 
-        form.addEventListener('submit', function (e) {
-          e.preventDefault();
+				
+			</div>
+			<span style="font-family: 'Roboto'; font-weight: bold; text-align: center; font-size: 22px">Borrowed Books</span>
+			<!-- Borrowed Books Section -->
+			<div class="card">
+				<div class="books-container">
+					<!-- More rows for testing scrolling -->
+					<!-- You can remove these in production if not needed -->
+					<% for(let i=5; i <=25; i++) { %>
+						<div class="book-row d-flex align-items-center">
+							<div class="col-3">(Author <%= i %>)</div>
+							<div class="col-4">(Title <%= i %>)</div>
+							<div class="col-2 text-center">(Date)</div>
+							<div class="col-1 text-center"><span class="status-check">✓</span></div>
+							<div class="col-2 text-center">
+								<button class="borrow-btn" data-book-id="<%= i %>">Borrow</button>
+							</div>
+						</div>
+						<% } %>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="modal fade" id="successModal" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Success</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+					</div>
+					<div class="modal-body">
+						Profile Picture changed successfully!
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const form = document.getElementById('gravatar-form');
+				const gravatarEmailInput = document.getElementById('gravatarEmail');
+				const gravatarImage = document.getElementById('gravatar-image');
+				const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+				document.getElementsByClassName('btn-close')[0].addEventListener('click', () => {
+					successModal.hide();
+				});
+				form.addEventListener('submit', function (e) {
+					e.preventDefault();
 
-          if (form.checkValidity()) {
-            const email = gravatarEmailInput.value;
-            const hashedEmail = SHA256(email);
-            gravatarImage.src = `https://www.gravatar.com/avatar/${hashedEmail}`;
+					if (form.checkValidity()) {
+						const email = gravatarEmailInput.value;
+						const hashedEmail = SHA256(email);
+						gravatarImage.src = `https://www.gravatar.com/avatar/${hashedEmail}`;
 
-            // Show success modal
-            successModal.show();
-          }
+						successModal.show();
+					}
 
-          form.classList.add('was-validated');
-        });
-      });
-    </script>
+					form.classList.add('was-validated');
+				});
+			});
+		</script>
+		<%- include('footer') %>
