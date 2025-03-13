@@ -1,3 +1,4 @@
 serverOptions:
   port: 3000
   dbEndpoint: mongodb://localhost:27017/F3D10S
+  sessionSecret: "bookjam"
