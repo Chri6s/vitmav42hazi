@@ -2,6 +2,8 @@ const renderMW = require("../middleware/renderMW");
 const UserModel = require("../models/user");
 const BookModel = require("../models/book");
 const LoanModel = require("../models/loan");
+const authMW = require("../middleware/auth/authMW");
+const loginMW = require("../middleware/auth/loginMW");
 
 module.exports = function(app) {
 
@@ -19,7 +21,8 @@ module.exports = function(app) {
     //     next();
     // });
     app.use('/login',
-         renderMW(objLib, 'login')
+        loginMW(objLib),
+        renderMW(objLib, 'login')
     );
     app.use('/search',
         renderMW(objLib, 'search')
