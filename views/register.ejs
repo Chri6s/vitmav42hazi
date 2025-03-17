@@ -93,8 +93,8 @@
 				const password = document.getElementById('password').value;
 				const passwordAgain = document.getElementById('passwordAgain').value;
 				const passwordInput = document.getElementById('passwordAgain');
-				
-				if(password !== passwordAgain) {
+
+				if (password !== passwordAgain) {
 					passwordInput.classList.add('is-invalid');
 					return;
 				}
@@ -113,22 +113,26 @@
 					},
 					body: JSON.stringify(formData)
 				})
-				.then(res => {
-					if(res.redirected) {
-						window.location.href = res.url;
-					} else {
-						return res.json();
-					}
-				})
-				.then(data => {
-					if(data && data.error) {
-						// Error handling via front end
-						alert(data.error);
-					}
-				})
-				.catch(err => {
-					console.error('Error:', err);
-				});
+					.then(response => {
+						if (response.redirected) {
+							window.location.href = response.url;
+							return;
+						}
+
+						const contentType = response.headers.get('content-type');
+						if (contentType && contentType.includes('application/json')) {
+							return response.json().then(data => {
+								if (data.error) {
+									alert(data.error);
+								}
+							});
+						} else {
+							window.location.reload();
+						}
+					})
+					.catch(error => {
+						console.error('Error:', error);
+					});
 			}
 			document.getElementById('passwordAgain').addEventListener('input', function () {
 				const password = document.getElementById('password').value;

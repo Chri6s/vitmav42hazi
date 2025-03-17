@@ -4,6 +4,7 @@ const BookModel = require("../models/book");
 const LoanModel = require("../models/loan");
 const authMW = require("../middleware/auth/authMW");
 const loginMW = require("../middleware/auth/loginMW");
+const registerMW = require("../middleware/auth/registerMW");
 
 module.exports = function(app) {
 
@@ -28,6 +29,7 @@ module.exports = function(app) {
         renderMW(objLib, 'search')
     );
     app.use('/register',
+        registerMW(objLib),
         renderMW(objLib, 'register')
     );
     app.use('/user',
