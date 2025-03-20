@@ -43,12 +43,17 @@
 		}
 	</style>
 	<%- include('navbar') -%>
-
+	<% if (typeof successMessage !== 'undefined' && successMessage) { %>
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+		  <%= successMessage %>
+		  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	<% } %>
 		<div class="register-container">
 			<div class="register-form">
 				<h3 class="register-title">Create a new account</h3>
 
-				<form id="registerForm" action="/register" method="POST" onsubmit="return validateForm()">
+				<form id="registerForm" method="POST" onsubmit="return validateForm()">
 					<div class="mb-3">
 						<p>Username</p>
 						<input type="text" class="form-control" id="username" name="username" placeholder="E.g. user01"
@@ -80,13 +85,13 @@
 				</form>
 			</div>
 		</div>
+
 		<script>
 			document.addEventListener('DOMContentLoaded', () => {
 				const form = document.getElementById('registerForm');
 
 				form.addEventListener('submit', event => {
 					event.preventDefault();
-					validateForm();
 				});
 			});
 			function validateForm() {
@@ -146,4 +151,4 @@
 				}
 			});
 		</script>
-		<%- include('footer') -%>
+<%- include('footer') -%>
