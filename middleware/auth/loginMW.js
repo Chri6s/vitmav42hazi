@@ -17,7 +17,7 @@ module.exports = function(objectRepository) {
                     digest('hex');
                 if(user.password === hash) {
                     req.session.userid = user._id;
-                    req.session.beleve = true;
+                    req.session.belepve = true;
                     return res.redirect('/user');
                 };
             })

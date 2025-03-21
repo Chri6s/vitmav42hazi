@@ -5,6 +5,7 @@ const LoanModel = require("../models/loan");
 const authMW = require("../middleware/auth/authMW");
 const loginMW = require("../middleware/auth/loginMW");
 const registerMW = require("../middleware/auth/registerMW");
+const logoutMW = require("../middleware/auth/logoutMW");
 
 module.exports = function(app) {
 
@@ -26,6 +27,7 @@ module.exports = function(app) {
         renderMW(objLib, 'login')
     );
     app.use('/search',
+        authMW(objLib),
         renderMW(objLib, 'search')
     );
     app.use('/register',
@@ -33,9 +35,13 @@ module.exports = function(app) {
         renderMW(objLib, 'register')
     );
     app.use('/user',
+        authMW(objLib),
         renderMW(objLib, 'profile')
     );
-    app.use('/', 
+    app.use('/',
         renderMW(objLib, 'index')
+    );
+    app.use('/logout',
+        logoutMW(objLib)
     );
 }
