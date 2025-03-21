@@ -99,8 +99,8 @@
 <div class="profile-container">
 	<div class="profile-card">
 		<div class="profile-picture">
-			<img src="/images/nopfp.svg" alt="Profile Picture" id="gravatar-image">
-			<span>Username</span>
+			<img src="<%= user && user.gravatarEmail ? 'https://www.gravatar.com/avatar/' + user.gravatarEmail : '/images/nopfp.svg' %>" alt="Profile Picture" id="gravatar-image">
+			<span><%= user.username %></span>
 		</div>
 
 		<form id="gravatar-form" class="gravatar-input" novalidate>
@@ -109,24 +109,36 @@
 		</form>
 
 	</div>
+	<% if (user.type == "admin") { %>
 	<div class="admin-panel mx-auto">
 		<a href="/search"><button class="btn login-btn ms-2">Manage Books</button></a>
 		<a><button class="btn login-btn ms-2" onclick="addNewBook()">Add new Book</button></a>
-	</div>	
+	</div>
+	<%}%>	
 	<span style="font-family: 'Roboto'; font-weight: bold; text-align: center; font-size: 22px">Borrowed Books</span>
 	<div class="card">
 		<div class="books-container">
-			<% for(let i=5; i <=25; i++) { %>
-				<div class="book-row d-flex align-items-center">
-					<div class="col-3">(Author <%= i %>)</div>
-					<div class="col-4">(Title <%= i %>)</div>
-					<div class="col-2 text-center">(Date)</div>
-					<div class="col-1 text-center"><span class="status-check">✓</span></div>
-					<div class="col-2 text-center">
-						<button class="borrow-btn" data-book-id="<%= i %>">Borrow</button>
+			<% if (loans && loans.length > 0) { %>
+				<% loans.forEach(function(loanDetail) { %>
+					<div class="book-row d-flex align-items-center">
+						<div class="col-3"><%= loanDetail.book.author %></div>
+						<div class="col-4"><%= loanDetail.book.title %></div>
+						<div class="col-2 text-center"><%= loanDetail.borrowedDate %></div>
+						<div class="col-1 text-center"><span class="status-check"><%= loanDetail.loan.status ? '✓' : '✗' %></span></div>
+						<div class="col-2 text-center">
+							<% if (!loanDetail.loan.returnDate) { %>
+								<button class="borrow-btn" data-book-id="<%= loanDetail.book.id %>">Return</button>
+							<% } else { %>
+								Returned: <%= loanDetail.returnDate %>
+							<% } %>
+						</div>
 					</div>
+				<% }); %>
+			<% } else { %>
+				<div class="book-row d-flex align-items-center justify-content-center">
+					<p>You haven't borrowed any books yet.</p>
 				</div>
-				<% } %>
+			<% } %>
 		</div>
 	</div>
 </div>
@@ -182,25 +194,49 @@
 
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
-		const form = document.getElementById('gravatar-form');
-		const gravatarEmailInput = document.getElementById('gravatarEmail');
-		const gravatarImage = document.getElementById('gravatar-image');
-		const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-		document.getElementsByClassName('btn-close')[0].addEventListener('click', () => {
-			successModal.hide();
-		});
-		form.addEventListener('submit', function (e) {
-			e.preventDefault();
-
-			if (form.checkValidity()) {
-				gravatarImage.src = `https://www.gravatar.com/avatar/${SHA256(gravatarEmailInput.value)}`;
-				successModal.show();
-			}
-
-			form.classList.add('was-validated');
-		});
-		const addNewBookModal = new bootstrap.Modal(document.getElementById('addNewBookModal'));
-
+    const form = document.getElementById('gravatar-form');
+    const gravatarEmailInput = document.getElementById('gravatarEmail');
+    const gravatarImage = document.getElementById('gravatar-image');
+    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+    
+    document.getElementsByClassName('btn-close')[0].addEventListener('click', () => {
+        successModal.hide();
+    });
+    
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        
+        if (form.checkValidity()) {
+            const email = gravatarEmailInput.value;
+            
+            // Send AJAX request
+            fetch('/user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ gravatarEmail: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Hash the email on client side for immediate visual feedback
+                    const hashedEmail = SHA256(email.trim().toLowerCase());
+                    gravatarImage.src = `https://www.gravatar.com/avatar/${hashedEmail}`;
+                    successModal.show();
+                } else {
+                    alert(data.message || 'An error occurred');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating your profile picture.');
+            });
+        }
+        
+        form.classList.add('was-validated');
+    	});
 	});
 	function addNewBook() {
 		const addNewBookModal = new bootstrap.Modal(document.getElementById('addNewBookModal'));

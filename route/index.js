@@ -6,6 +6,8 @@ const authMW = require("../middleware/auth/authMW");
 const loginMW = require("../middleware/auth/loginMW");
 const registerMW = require("../middleware/auth/registerMW");
 const logoutMW = require("../middleware/auth/logoutMW");
+const getUserMW = require("../middleware/user/getUserMW");
+const updateGravatarMW = require("../middleware/user/updateGravatarMW");
 
 module.exports = function(app) {
 
@@ -36,12 +38,14 @@ module.exports = function(app) {
     );
     app.use('/user',
         authMW(objLib),
+        getUserMW(objLib),
+        updateGravatarMW(objLib),
         renderMW(objLib, 'profile')
-    );
-    app.use('/',
-        renderMW(objLib, 'index')
     );
     app.use('/logout',
         logoutMW(objLib)
+    );
+    app.use('/',
+        renderMW(objLib, 'index')
     );
 }
