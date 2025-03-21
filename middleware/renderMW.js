@@ -1,13 +1,18 @@
-
 const requireOption = require('../lib/js/requireOption');
 
-module.exports = function(objectrepository, viewName) {
+module.exports = function(objectrepository, viewName, extraVariables = {}) {
     return function(req, res) {
-        res.render(viewName, {
-            successMessage: req.session.successMessage || null
-        });
+        let renderVariables = {
+            successMessage: req.session && req.session.successMessage ? req.session.successMessage : null
+        };
+        if (res.locals) {
+            renderVariables = { ...renderVariables, ...res.locals };
+        }
+        renderVariables = { ...renderVariables, ...extraVariables };
         
-        if (req.session.successMessage) {
+        res.render(viewName, renderVariables);
+
+        if (req.session && req.session.successMessage) {
             req.session.successMessage = null;
         }
     };
