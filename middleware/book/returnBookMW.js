@@ -18,7 +18,6 @@ module.exports = function(objectRepository) {
         }
         
         try {
-            const userId = req.session.userid;
             
             const loan = await LoanModel.findOne({
                 bookId: req.params.id,

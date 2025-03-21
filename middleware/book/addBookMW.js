@@ -23,6 +23,7 @@ module.exports = function(objectRepository) {
                 title: req.body.title,
                 author: req.body.author,
                 ISBN: req.body.ISBN,
+                year: req.body.year,
                 category: req.body.category || "Uncategorized",
                 status: true
             });

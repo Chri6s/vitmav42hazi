@@ -6,32 +6,34 @@
 		<h2 class="section-title roboto">New Books this month</h2>
 
 		<div class="books-container">
-			<% for(let i=5; i <=20; i++) { %>
-				<div class="book-row d-flex align-items-center">
-					<div class="col-3">(Author <%= i %>)</div>
-					<div class="col-4">(Title <%= i %>)</div>
-					<div class="col-2 text-center">(Date)</div>
-					<div class="col-1 text-center"><span class="status-check">✓</span></div>
-					<div class="col-2 text-center">
-						<button class="borrow-btn" data-book-id="<%= i %>">Borrow</button>
+			<% if (locals.newBooks && newBooks.length > 0) { %>
+				<% newBooks.forEach(function(book) { %>
+					<div class="book-row d-flex align-items-center">
+						<div class="col-3"><%= book.author %></div>
+						<div class="col-4"><%= book.title %></div>
+						<div class="col-2 text-center"><%= book.date ? new Date(book.date).toLocaleDateString() : 'N/A' %></div>
+						<div class="col-1 text-center">
+							<span class="status-check"><%= book.status ? '✓' : '✗' %></span>
+						</div>
+						<div class="col-2 text-center">
+							<% if (book.status) { %>
+								<% if (locals.isAuthenticated) { %>
+									<form method="POST" action="/book/borrow/<%= book.id %>">
+										<button type="submit" class="borrow-btn" data-book-id="<%= book.id %>">Borrow</button>
+									</form>
+								<% } else { %>
+									<a href="/login" class="btn btn-sm btn-secondary">Login to Borrow</a>
+								<% } %>
+							<% } else { %>
+								<span class="badge bg-secondary">Unavailable</span>
+							<% } %>
+						</div>
 					</div>
-				</div>
-				<% } %>
+				<% }); %>
+			<% } else { %>
+				<div class="alert alert-info">No new books available this month.</div>
+			<% } %>
 		</div>
 	</div>
 </div>
-
-<script>
-	document.addEventListener('DOMContentLoaded', function () {
-		const borrowButtons = document.querySelectorAll('.borrow-btn');
-		borrowButtons.forEach(button => {
-			button.addEventListener('click', function () {
-				const bookId = this.getAttribute('data-book-id');
-				// Handle borrowing logic here
-				console.log(`Borrowing book with ID: ${bookId}`);
-				// You could redirect to a login page if not logged in or process the borrow request
-			});
-		});
-	});
-</script>
 <%- include('footer') -%>

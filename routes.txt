@@ -1,0 +1,90 @@
+BookJam - Könyv menedzsment rendszer
+- index.html - főoldal
+- login.html - belépési oldal
+- register.html - regisztrációs oldal
+- search.html - kereső oldal (Adminként könyv menedzselő és hozzáadó oldal)
+- profile.html - felhasználói profil oldal
+
+Routing
+renderMW
+middleware/auth/
+    authMW.js
+    loginMW.js
+    registerMW.js
+    logoutMW.js
+middleware/user/
+    getUserMW.js
+    updateGravatarMW.js
+middleware/book/
+    getBooksMW.js
+    addBookMW.js
+    editBookMW.js
+    deleteBookMW.js
+    borrowBookMW.js
+    returnBookMW.js
+    getLatestBooksMW.js
+
+
+GET, POST /login
+    loginMW
+    renderMW(login)
+        - POST: user beléptetése
+        - GET: belépési form mutatása
+
+GET, POST /register
+    registerMW
+    renderMW(register)
+        - POST: új felhasználó regisztrálása
+        - GET: regisztrációs form mutatása
+
+GET /search
+    authMW
+    getBooksMW
+    renderMW(search)
+        - Kiadja a keresett queryre metchelő könyveket
+
+GET, POST /user
+    authMW
+    getUserMW
+    updateGravatarMW
+    renderMW(profile)
+        - felhasználó profil megjelenítése
+        - POST: Gravatar email frissítésére
+
+GET /logout
+    logoutMW
+        - nagyon egyszerű ha GET akkor session destroy.
+
+POST /book/add
+    authMW
+    addBookMW
+    getBooksMW
+    renderMW(search)
+        - új könyv hozzáadása
+
+POST /book/edit/:id
+    authMW
+    editBookMW
+    getBooksMW
+    renderMW(search)
+        - szerkeszthetjük egy könyvet az adatbázisból
+
+DELETE /book/:id
+    authMW
+    deleteBookMW
+        - kitöröl egy könyvet a rendszerből
+
+POST /book/borrow/:id
+    authMW
+    borrowBookMW
+        - Létrehoz egy loan rekordot
+
+POST /book/return/:id
+    authMW
+    returnBookMW
+        - könyv visszaadása
+
+GET /
+    authMW
+    getLatestBooksMW
+    renderMW(index)

@@ -10,6 +10,9 @@ module.exports = function(objectRepository) {
             return next();
         }
         const regInfo = req.body;
+        
+        res.locals.successMessage = "";
+        res.locals.errorMessage = "";
 
         if (!regInfo.username || !regInfo.email || !regInfo.password) {
             res.locals.error = "All fields are required";

@@ -14,7 +14,7 @@
 		display: flex;
 		flex-direction: column;
 	}
-
+	
 	.profile-card {
 		background-color: #ddd;
 		border-radius: 10px;
@@ -24,14 +24,14 @@
 		flex-direction: row;
 		gap: 5rem;
 	}
-
+	
 	.profile-picture {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		margin-bottom: 1.5rem;
 	}
-
+	
 	.profile-picture img {
 		width: 150px;
 		height: 150px;
@@ -39,41 +39,41 @@
 		object-fit: cover;
 		margin-bottom: 1rem;
 	}
-
+	
 	.gravatar-input {
 		display: flex;
 		align-items: center;
 		gap: 1rem;
 		margin-bottom: 1rem;
 	}
-
+	
 	.gravatar-input input {
 		flex-grow: 1;
 		border-radius: 20px;
 		padding: 0.5rem 1rem;
 	}
-
+	
 	.submit-btn {
 		display: flex;
 		justify-content: flex-end;
 	}
-
+	
 	.borrowed-books-section {
 		margin-top: 2rem;
 	}
-
+	
 	.borrowed-books-table {
 		width: 100%;
 		border-collapse: collapse;
 	}
-
+	
 	.borrowed-books-table th,
 	.borrowed-books-table td {
 		border: 1px solid #999;
 		padding: 0.5rem;
 		text-align: left;
 	}
-
+	
 	.give-back-btn {
 		background-color: var(--bookworm-brown);
 		color: white;
@@ -81,7 +81,7 @@
 		padding: 0.25rem 0.5rem;
 		border-radius: 5px;
 	}
-
+	
 	.btn {
 		margin-bottom: 0;
 		background-color: white;
@@ -89,7 +89,7 @@
 		border: none;
 		font-weight: bold;
 	}
-
+	
 	.card {
 		overflow: auto;
 	}
@@ -102,145 +102,128 @@
 			<img src="<%= user && user.gravatarEmail ? 'https://www.gravatar.com/avatar/' + user.gravatarEmail : '/images/nopfp.svg' %>" alt="Profile Picture" id="gravatar-image">
 			<span><%= user.username %></span>
 		</div>
-
+		
 		<form id="gravatar-form" class="gravatar-input" novalidate>
 			<input id="gravatarEmail" type="text" data-form-type="other" placeholder="Gravatar Email" name="gravatarEmail">
 			<button type="submit" class="btn">Save</button>
 		</form>
-
+		
 	</div>
 	<% if (user.type == "admin") { %>
-	<div class="admin-panel mx-auto">
-		<a href="/search"><button class="btn login-btn ms-2">Manage Books</button></a>
-		<a><button class="btn login-btn ms-2" onclick="addNewBook()">Add new Book</button></a>
-	</div>
-	<%}%>	
-	<span style="font-family: 'Roboto'; font-weight: bold; text-align: center; font-size: 22px">Borrowed Books</span>
-	<div class="card">
-		<div class="books-container">
-			<% if (loans && loans.length > 0) { %>
-				<% loans.forEach(function(loanDetail) { %>
-					<div class="book-row d-flex align-items-center">
-						<div class="col-3"><%= loanDetail.book.author %></div>
-						<div class="col-4"><%= loanDetail.book.title %></div>
-						<div class="col-2 text-center"><%= loanDetail.borrowedDate %></div>
-						<div class="col-1 text-center"><span class="status-check"><%= loanDetail.loan.status ? '✓' : '✗' %></span></div>
-						<div class="col-2 text-center">
-							<% if (!loanDetail.loan.returnDate) { %>
-								<button class="borrow-btn" data-book-id="<%= loanDetail.book.id %>">Return</button>
-							<% } else { %>
-								Returned: <%= loanDetail.returnDate %>
-							<% } %>
+		<div class="admin-panel mx-auto">
+			<a href="/search"><button class="btn login-btn ms-2">Manage Books</button></a>
+			<a><button class="btn login-btn ms-2" onclick="addNewBook()">Add new Book</button></a>
+		</div>
+		<%}%>	
+		<span style="font-family: 'Roboto'; font-weight: bold; text-align: center; font-size: 22px">Borrowed Books</span>
+		<div class="card">
+			<div class="books-container">
+				<% if (loans && loans.length > 0) { %>
+					<% loans.forEach(function(loanDetail) { %>
+						<div class="book-row d-flex align-items-center">
+							<div class="col-3"><%= loanDetail.book.author %></div>
+							<div class="col-4"><%= loanDetail.book.title %></div>
+							<div class="col-2 text-center"><%= loanDetail.borrowedDate %></div>
+							<div class="col-1 text-center"><span class="status-check"><%= loanDetail.loan.status ? '✓' : '✗' %></span></div>
+							<div class="col-2 text-center">
+								<% if (!loanDetail.loan.returnDate) { %>
+									<button class="borrow-btn" data-book-id="<%= loanDetail.book.id %>" onclick="returnBook('<%= loanDetail.loan.bookId %>')">Return</button>
+									<% } else { %>
+										Returned: <%= loanDetail.returnDate %>
+										<% } %>
+									</div>
+								</div>
+								<% }); %>
+								<% } else { %>
+									<div class="book-row d-flex align-items-center justify-content-center">
+										<p>You haven't borrowed any books yet.</p>
+									</div>
+									<% } %>
+								</div>
+							</div>
 						</div>
 					</div>
-				<% }); %>
-			<% } else { %>
-				<div class="book-row d-flex align-items-center justify-content-center">
-					<p>You haven't borrowed any books yet.</p>
-				</div>
-			<% } %>
-		</div>
-	</div>
-</div>
-</div>
-<div class="modal fade" id="successModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Success</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-			</div>
-			<div class="modal-body">
-				Profile Picture changed successfully!
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="addNewBookModal" tabindex="-1" aria-labelledby="addNewBookModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="addNewBookModalLabel">Add New Book</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<form id="addNewBookForm">
-					<div class="mb-3">
-						<label for="bookTitle" class="form-label">Title</label>
-						<input type="text" class="form-control" id="bookTitle" required>
+					<div class="modal fade" id="successModal" tabindex="-1">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Success</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+								</div>
+								<div class="modal-body">
+									Profile Picture changed successfully!
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="mb-3">
-						<label for="bookAuthor" class="form-label">Author</label>
-						<input type="text" class="form-control" id="bookAuthor" required>
-					</div>
-					<div class="mb-3">
-						<label for="bookDate" class="form-label">Date</label>
-						<input type="date" class="form-control" id="bookDate" required>
-					</div>
-					<div class="mb-3">
-						<label for="bookISBN" class="form-label">ISBN</label>
-						<input type="text" class="form-control" id="bookISBN" required>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-				<button type="submit" class="btn btn-primary" form="addNewBookForm">Submit</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<script>
-	document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('gravatar-form');
-    const gravatarEmailInput = document.getElementById('gravatarEmail');
-    const gravatarImage = document.getElementById('gravatar-image');
-    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-    
-    document.getElementsByClassName('btn-close')[0].addEventListener('click', () => {
-        successModal.hide();
-    });
-    
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        
-        if (form.checkValidity()) {
-            const email = gravatarEmailInput.value;
-            
-            // Send AJAX request
-            fetch('/user', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({ gravatarEmail: email })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Hash the email on client side for immediate visual feedback
-                    const hashedEmail = SHA256(email.trim().toLowerCase());
-                    gravatarImage.src = `https://www.gravatar.com/avatar/${hashedEmail}`;
-                    successModal.show();
-                } else {
-                    alert(data.message || 'An error occurred');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while updating your profile picture.');
-            });
-        }
-        
-        form.classList.add('was-validated');
-    	});
-	});
-	function addNewBook() {
-		const addNewBookModal = new bootstrap.Modal(document.getElementById('addNewBookModal'));
-		addNewBookModal.show();
-	}
-</script>
-<%- include('footer') %>
+					
+					
+					
+					<script>
+						document.addEventListener('DOMContentLoaded', () => {
+							const form = document.getElementById('gravatar-form');
+							const gravatarEmailInput = document.getElementById('gravatarEmail');
+							const gravatarImage = document.getElementById('gravatar-image');
+							const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+							
+							document.getElementsByClassName('btn-close')[0].addEventListener('click', () => {
+								successModal.hide();
+							});
+							
+							form.addEventListener('submit', function (e) {
+								e.preventDefault();
+								
+								if (form.checkValidity()) {
+									const email = gravatarEmailInput.value;
+									
+									// Send AJAX request
+									fetch('/user', {
+										method: 'POST',
+										headers: {
+											'Content-Type': 'application/json',
+											'Accept': 'application/json'
+										},
+										body: JSON.stringify({ gravatarEmail: email })
+									})
+									.then(response => response.json())
+									.then(data => {
+										if (data.success) {
+											// Hash the email on client side for immediate visual feedback
+											const hashedEmail = SHA256(email.trim().toLowerCase());
+											gravatarImage.src = `https://www.gravatar.com/avatar/${hashedEmail}`;
+											successModal.show();
+										} else {
+											alert(data.message || 'An error occurred');
+										}
+									})
+									.catch(error => {
+										console.error('Error:', error);
+										alert('An error occurred while updating your profile picture.');
+									});
+								}
+								
+								form.classList.add('was-validated');
+							});
+						});
+						function returnBook(id) {
+							fetch(`/book/return/${id}`, {
+								method: 'POST',
+								headers: {
+									'Accept': 'application/json'
+								}
+							})
+							.then(response => response.json())
+							.then(data => {
+								if (data.success) {
+									window.location.reload();
+								} else {
+									alert(data.message || 'This book cannot be returned at the moment.');
+								}
+							})
+							.catch(error => {
+								console.error('Error:', error);
+								alert('An error occurred while returning the book.');
+							});
+						}
+					</script>
+					<%- include('footer') %>

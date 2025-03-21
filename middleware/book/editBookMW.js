@@ -21,6 +21,7 @@ module.exports = function(objectRepository) {
                     title: req.body.title,
                     author: req.body.author,
                     ISBN: req.body.ISBN,
+                    year: req.body.year,
                     category: req.body.category || "Uncategorized",
                     status: req.body.status !== undefined ? req.body.status : true
                 },

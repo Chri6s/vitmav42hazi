@@ -8,7 +8,10 @@ module.exports = function(objectRepository) {
     return function(req, res, next) {
         if(req.method !== 'POST') return next();
         if(!req.body.username || !req.body.password) return next(); // TODO error handling when no username or password
-
+        
+        res.locals.successMessage = "";
+        res.locals.errorMessage = "";
+        
         UserModel.findOne({ username: req.body.username })
             .then(user => {
                 if(!user) return next(); // TODO error handling when user not found

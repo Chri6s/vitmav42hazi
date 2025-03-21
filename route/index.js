@@ -17,6 +17,7 @@ const editBookMW = require("../middleware/book/editBookMW");
 const deleteBookMW = require("../middleware/book/deleteBookMW");
 const borrowBookMW = require("../middleware/book/borrowBookMW");
 const returnBookMW = require("../middleware/book/returnBookMW");
+const getLatestBooksMW = require("../middleware/book/getLatestBooksMW");
 
 module.exports = function(app) {
 
@@ -25,14 +26,7 @@ module.exports = function(app) {
         BookModel: BookModel,
         LoanModel: LoanModel
     }
-    // app.post('/register', (req, res, next) => {
-    //     console.log('Login Request Body:', req.body);
-    //     console.log('Username:', req.body.username);
-    //     console.log('Password:', req.body.password);
-    //     console.log('Password Again', req.body.passwordAgain);
-    //     console.log('Email', req.body.email);
-    //     next();
-    // });
+
     app.use('/login',
         loginMW(objLib),
         renderMW(objLib, 'login')
@@ -82,6 +76,8 @@ module.exports = function(app) {
         returnBookMW(objLib)
     );
     app.use('/',
+        authMW(objLib),
+        getLatestBooksMW(objLib),
         renderMW(objLib, 'index')
     );
 }

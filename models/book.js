@@ -5,6 +5,7 @@ const Book = db.model("Book", {
     title: String,
     author: String,
     ISBN: String,
+    year: Number,
     category: String,
     status: Boolean // Ha 0 akkor nem elérhető, Ha 1 kölcsönözhető
 });
