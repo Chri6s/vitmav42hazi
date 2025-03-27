@@ -13,33 +13,27 @@ module.exports = function(objectRepository) {
         }
 
         try {
-            // Fetch the user data
             const user = await UserModel.findById(req.session.userid);
             if (!user) {
                 return res.redirect('/login');
             }
 
-            // Set user data in res.locals
             res.locals.user = user;
             
-            // Fetch the user's loans with associated book information
             const loans = await LoanModel.find({ userId: user.id });
             
-            // Create an array to store loan information with book details
-            const loanDetails = [];
-            
-            // Fetch book details for each loan
-            for (const loan of loans) {
-                const book = await BookModel.findOne({ id: loan.bookId });
-                if (book) {
-                    loanDetails.push({
-                        loan: loan,
-                        book: book,
-                        borrowedDate: new Date(loan.borrowedDate).toLocaleDateString(),
-                        returnDate: loan.returnDate ? new Date(loan.returnDate).toLocaleDateString() : null
-                    });
-                }
-            }
+            const bookIds = loans.map(loan => loan.bookId);
+            const books = await BookModel.find({ id: { $in: bookIds } });
+            const booksMap = books.reduce((map, book) => {
+                map[book.id] = book;
+                return map;
+            }, {});
+            const loanDetails = loans.map(loan => ({
+                loan: loan,
+                book: booksMap[loan.bookId],
+                borrowedDate: new Date(loan.borrowedDate).toLocaleDateString(),
+                returnDate: loan.returnDate ? new Date(loan.returnDate).toLocaleDateString() : null
+            }));
             
             // Set loan data in res.locals
             res.locals.loans = loanDetails;

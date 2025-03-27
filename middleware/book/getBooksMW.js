@@ -33,10 +33,8 @@ module.exports = function(objectRepository) {
                 }
             }
             
-            // Fetch books matching the query
             const books = await BookModel.find(query).sort('title');
             
-            // Add to res.locals for use in rendering
             res.locals.books = books;
             res.locals.searchType = searchType;
             res.locals.searchTerm = searchTerm;

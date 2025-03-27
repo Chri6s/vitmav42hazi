@@ -41,7 +41,7 @@ GET /search
     authMW
     getBooksMW
     renderMW(search)
-        - Kiadja a keresett queryre metchelő könyveket
+        - Kiadja a keresett queryre matchelő könyveket
 
 GET, POST /user
     authMW

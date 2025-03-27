@@ -3,12 +3,15 @@ const session = require("express-session");
 const { ConfigHandler } = require("./lib/js/ConfigHandler");
 let configHandler = new ConfigHandler();
 let port = configHandler.get("serverOptions", "port");
+const compression = require('compression');
 let app = express();
+
 
 app.set("view engine", "ejs");
 app.use(express.static("static"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(compression());
 
 app.use(
     session({
