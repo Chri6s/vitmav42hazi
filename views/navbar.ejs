@@ -8,7 +8,7 @@
 				<div class="d-flex align-items-center">
 					<img src="<%= locals.user && locals.user.gravatarEmail ? 'https://www.gravatar.com/avatar/' + locals.user.gravatarEmail : '/images/nopfp.svg' %>" 
 						alt="Profile Picture" 
-						class="rounded-circle me-2" 
+						class="rounded-circle me-2 gravatar-image" 
 						style="width: 40px; height: 40px; object-fit: cover;">
 					<a href="/user"><button class="btn login-btn ms-2">Profile</button></a>
 					<a href="/logout"><button class="btn login-btn ms-2">Log out</button></a>
