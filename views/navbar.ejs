@@ -6,12 +6,20 @@
 		<div class="ms-auto">
 			<% if (locals.isAuthenticated) { %>
 				<div class="d-flex align-items-center">
-					<img src="<%= locals.user && locals.user.gravatarEmail ? 'https://www.gravatar.com/avatar/' + locals.user.gravatarEmail : '/images/nopfp.svg' %>" 
-						alt="Profile Picture" 
-						class="rounded-circle me-2 gravatar-image" 
-						style="width: 40px; height: 40px; object-fit: cover;">
-					<a href="/user"><button class="btn login-btn ms-2">Profile</button></a>
-					<a href="/logout"><button class="btn login-btn ms-2">Log out</button></a>
+					<div class="dropdown">
+						<img src="<%= locals.user && locals.user.gravatarEmail ? 'https://www.gravatar.com/avatar/' + locals.user.gravatarEmail : '/images/nopfp.svg' %>" 
+							alt="Profile Picture" 
+							class="rounded-circle me-2 gravatar-image dropdown" 
+							style="width: 40px; height: 40px; object-fit: cover;"
+							data-bs-toggle="dropdown"
+							data-bs-display="static"
+							type="button"
+						>
+						<ul class="dropdown-menu dropdown-menu-end">
+						  <li><a href="/user"><button class="dropdown-item login-btn">Profile</button></a></li>
+						  <li><a href="/logout"><button class="dropdown-item login-btn">Log out</button></a></li>
+						</ul>
+					  </div>
 				</div>
 			<% } else { %>
 				<a class="register-btn instrument-serif-regular-italic " href="/register">Register</a>
