@@ -4,7 +4,7 @@
 		<button id="search-books-btn" class="btn login-btn ms-3">Search Books</button>
 
 		<div class="ms-auto">
-			<% if (locals.belepve) { %>
+			<% if (locals.isAuthenticated) { %>
 				<div class="d-flex align-items-center">
 					<img src="<%= locals.user && locals.user.gravatarEmail ? 'https://www.gravatar.com/avatar/' + locals.user.gravatarEmail : '/images/nopfp.svg' %>" 
 						alt="Profile Picture" 

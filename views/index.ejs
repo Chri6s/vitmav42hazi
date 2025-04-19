@@ -11,7 +11,7 @@
 					<div class="book-row d-flex align-items-center">
 						<div class="col-3"><%= book.author %></div>
 						<div class="col-4"><%= book.title %></div>
-						<div class="col-2 text-center"><%= book.date ? new Date(book.date).toLocaleDateString() : 'N/A' %></div>
+						<div class="col-2 text-center"><%= book.year ? book.year : 'N/A' %></div>
 						<div class="col-1 text-center">
 							<span class="status-check"><%= book.status ? '✓' : '✗' %></span>
 						</div>

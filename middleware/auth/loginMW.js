@@ -25,7 +25,7 @@ module.exports = function(objectRepository) {
                 
             if(user.password === hash) {
                 req.session.userid = user._id;
-                req.session.belepve = true;
+                req.session.isAuthenticated = true;
                 return res.redirect('/user');
             } else {
                 res.locals.errorMessage = "Invalid username or password";
