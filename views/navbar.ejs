@@ -6,8 +6,9 @@
 		<div class="ms-auto">
 			<% if (locals.isAuthenticated) { %>
 				<div class="d-flex align-items-center">
+					<span style="font-size: large; color: #BBBBBB; margin-right: 10px;">Hello <%= user.username %>!</span>
 					<div class="dropdown">
-						<img src="<%= locals.user && locals.user.gravatarEmail ? 'https://www.gravatar.com/avatar/' + locals.user.gravatarEmail : '/images/nopfp.svg' %>" 
+						<img src="<%= user && user.gravatarEmail ? 'https://www.gravatar.com/avatar/' + user.gravatarEmail : '/images/nopfp.svg' %>" 
 							alt="Profile Picture" 
 							class="rounded-circle me-2 gravatar-image dropdown" 
 							style="width: 40px; height: 40px; object-fit: cover;"
