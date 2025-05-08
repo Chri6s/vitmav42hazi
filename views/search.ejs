@@ -234,6 +234,7 @@
 												function setDropdownText(element) {
 													const dropdownButton = document.querySelector('.search-dd');
 													dropdownButton.innerHTML = element.innerHTML;
+													document.getElementById("searchType").value = String(element.innerHTML).toLowerCase();
 													
 													const activeItem = document.querySelector('.dropdown-item.active');
 													if (activeItem) {

@@ -13,7 +13,7 @@ module.exports = function(objectRepository) {
             
             if (searchTerm) {
                 const regex = new RegExp(searchTerm, 'i');
-                
+
                 switch (searchType) {
                     case 'author':
                         query.author = regex;
