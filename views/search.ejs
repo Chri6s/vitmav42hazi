@@ -35,7 +35,7 @@
 		/*Hack for aligning the header*/
 	}
 	
-	.book-header * {
+	.book-header *:not(:last-child) {
 		border-right: 1px solid black;
 		padding: 0;
 	}
@@ -108,10 +108,10 @@
 									<% if (locals.books && locals.books.length> 0) { %>
 										<% locals.books.forEach(function(book) { %>
 											<div class="book-row d-flex align-items-center">
-												<div class="col-3">
+												<div class="col-3 text-center">
 													<%= book.author %>
 												</div>
-												<div class="col-4">
+												<div class="col-4 text-center">
 													<%= book.title %>
 												</div>
 												<div class="col-2 text-center">
@@ -234,6 +234,7 @@
 												function setDropdownText(element) {
 													const dropdownButton = document.querySelector('.search-dd');
 													dropdownButton.innerHTML = element.innerHTML;
+													document.getElementById("searchType").value = String(element.innerHTML).toLowerCase();
 													
 													const activeItem = document.querySelector('.dropdown-item.active');
 													if (activeItem) {

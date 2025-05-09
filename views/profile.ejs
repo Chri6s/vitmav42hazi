@@ -99,8 +99,9 @@
 <div class="profile-container">
 	<div class="profile-card">
 		<div class="profile-picture">
-			<img src="<%= user && user.gravatarEmail ? 'https://www.gravatar.com/avatar/' + user.gravatarEmail : '/images/nopfp.svg' %>" alt="Profile Picture" id="gravatar-image">
+			<img class="gravatar-image" src="<%= user && user.gravatarEmail ? 'https://www.gravatar.com/avatar/' + user.gravatarEmail : '/images/nopfp.svg' %>" alt="Profile Picture">
 			<span><%= user.username %></span>
+			<% if (user.type == "admin")  { %> <span style="color: red; font-weight: bold;">ADMIN</span> <% } %>
 		</div>
 		
 		<form id="gravatar-form" class="gravatar-input" novalidate>
@@ -112,9 +113,8 @@
 	<% if (user.type == "admin") { %>
 		<div class="admin-panel mx-auto">
 			<a href="/search"><button class="btn login-btn ms-2">Manage Books</button></a>
-			<a><button class="btn login-btn ms-2" onclick="addNewBook()">Add new Book</button></a>
 		</div>
-		<%}%>	
+	<%} else {%>	
 		<span style="font-family: 'Roboto'; font-weight: bold; text-align: center; font-size: 22px">Borrowed Books</span>
 		<div class="card">
 			<div class="books-container">
@@ -143,6 +143,7 @@
 							</div>
 						</div>
 					</div>
+					<% } %>
 					<div class="modal fade" id="successModal" tabindex="-1">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -163,13 +164,11 @@
 						document.addEventListener('DOMContentLoaded', () => {
 							const form = document.getElementById('gravatar-form');
 							const gravatarEmailInput = document.getElementById('gravatarEmail');
-							const gravatarImage = document.getElementById('gravatar-image');
+							const gravatarImageTags = Array.from(document.getElementsByClassName('gravatar-image'));
 							const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-							
 							document.getElementsByClassName('btn-close')[0].addEventListener('click', () => {
 								successModal.hide();
 							});
-							
 							form.addEventListener('submit', function (e) {
 								e.preventDefault();
 								
@@ -190,7 +189,9 @@
 										if (data.success) {
 											// Hash the email on client side for immediate visual feedback
 											const hashedEmail = SHA256(email.trim().toLowerCase());
-											gravatarImage.src = `https://www.gravatar.com/avatar/${hashedEmail}`;
+											gravatarImageTags.forEach(element => {
+												element.src = `https://www.gravatar.com/avatar/${hashedEmail}`;
+											});
 											successModal.show();
 										} else {
 											alert(data.message || 'An error occurred');
