@@ -110,7 +110,7 @@ describe('requireAddBook middleware', () => {
     });
 
     it('should default category to Uncategorized', async () => {
-        req.body = { title: 'Book', author: 'Author', ISBN: '123', year: 2021 };
+        req.body = { title: 'Book', author: 'Mátyás Király', ISBN: '1234-123-13001-1337', year: 2020, category: 'Science' };
         BookModel.findOne = jest.fn().mockReturnValue({
             sort: jest.fn().mockResolvedValue(null)
         });

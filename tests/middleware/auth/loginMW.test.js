@@ -48,7 +48,6 @@ describe('requireUserLogin middleware', () => {
 
     it('should set error if password does not match', async () => {
         req.body = { username: 'someone', password: 'wrong' };
-        // Pre-hash a "good" password
         const goodHash = crypto.createHash('sha256').update('right').digest('hex');
         UserModel.findOne.mockResolvedValue({ username: 'someone', password: goodHash, _id: '123' });
         await middleware(req, res, next);
@@ -58,9 +57,9 @@ describe('requireUserLogin middleware', () => {
     it('should set session and redirect on successful login', async () => {
         req.body = { username: 'someone', password: 'pass' };
         const hash = crypto.createHash('sha256').update('pass').digest('hex');
-        UserModel.findOne.mockResolvedValue({ username: 'someone', password: hash, _id: 'abc123' });
+        UserModel.findOne.mockResolvedValue({ username: 'someone', password: hash, _id: 'asd123' });
         await middleware(req, res, next);
-        expect(req.session.userid).toBe('abc123');
+        expect(req.session.userid).toBe('asd123');
         expect(req.session.isAuthenticated).toBe(true);
         expect(res.redirect).toHaveBeenCalledWith('/user');
     });

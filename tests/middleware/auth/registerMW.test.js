@@ -92,7 +92,7 @@ describe('requireUserRegister middleware', () => {
                 sort: jest.fn().mockReturnThis(),
                 exec: jest.fn().mockResolvedValue({ id: 1 })
             });
-        UserModel.prototype.save = jest.fn().mockResolvedValue({ _id: 'abc123' });
+        UserModel.prototype.save = jest.fn().mockResolvedValue({ _id: 'asd123' });
 
         await middleware(req, res, next);
 
