@@ -1,5 +1,4 @@
 const requireOption = require("../../lib/js/requireOption");
-const colors = require("yoctocolors");
 
 module.exports = function(objectRepository) {
     const BookModel = requireOption(objectRepository, 'BookModel');
@@ -43,7 +42,7 @@ module.exports = function(objectRepository) {
             return res.redirect('/search');
             
         } catch (err) {
-            console.log(`[${colors.cyan("MW")}][❌] Error adding book:`, err);
+            console.log(`[MW][❌] Error adding book:`, err);
             
             if (req.xhr || req.headers.accept.indexOf('json') > -1) {
                 return res.status(500).json({

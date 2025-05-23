@@ -1,5 +1,4 @@
 const requireOption = require("../../lib/js/requireOption");
-const colors = require("yoctocolors");
 
 module.exports = function(objectRepository) {
     const UserModel = requireOption(objectRepository, 'UserModel');

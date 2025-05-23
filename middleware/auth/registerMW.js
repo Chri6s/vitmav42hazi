@@ -1,6 +1,5 @@
 const requireOption = require("../../lib/js/requireOption");
 const crypto = require('crypto');
-const colors = require("yoctocolors");
 
 module.exports = function(objectRepository) {
     const UserModel = requireOption(objectRepository, 'UserModel');
@@ -67,7 +66,7 @@ module.exports = function(objectRepository) {
             return res.redirect('/user');
             
         } catch (err) {
-            console.log(`[${colors.cyan("MW")}][❌] Registration error:`, err);
+            console.log(`[MW][❌] Registration error:`, err);
             res.locals.error = "An error occurred during registration";
             return next();
         }

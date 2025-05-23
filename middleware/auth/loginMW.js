@@ -1,5 +1,4 @@
 const requireOption = require("../../lib/js/requireOption");
-const colors = require("yoctocolors");
 const crypto = require("crypto");
 
 module.exports = function(objectRepository) {
@@ -32,7 +31,7 @@ module.exports = function(objectRepository) {
                 return next();
             }
         } catch (err) {
-            console.log(`[${colors.cyan("MW")}][❌] Error finding user:\n`, err);
+            console.log(`[MW][❌] Error finding user:\n`, err);
             res.locals.errorMessage = "An error occurred during login";
             return next();
         }
